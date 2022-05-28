@@ -34,7 +34,7 @@ def create_todo():
     except:
         error = True
         db.session.rollback()
-        print(sys.exec_ino())
+        print(sys.exc_info())
     finally:
         db.session.close()
         if error == True:
