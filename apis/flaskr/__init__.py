@@ -13,7 +13,12 @@ def create_app(test_Config=None):
         response.headers["Access-Control-Allow-Methods"] = "GET, POST, PATCH, DELETE, OPTIONS"
         return response
 
-    @app.route("/")
-    def get_greeting():
-        return jsonify({'message': 'Hello World!'})
+    @app.route("/plants")
+    def get_plants():
+        plants = Plant.query.all()
+        formatted_plants = [plant.format() for plant in plants]    
+        return jsonify({
+            'success': True,
+            'plants': formatted_plants
+        })
     return app
