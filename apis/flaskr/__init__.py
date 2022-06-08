@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from models import setup_db, Plant
 from flask_cors import CORS
 
@@ -15,10 +15,15 @@ def create_app(test_Config=None):
 
     @app.route("/plants")
     def get_plants():
+        page = request.args.get('page', 1, type=int)
+        start = (page - 1) * 5
+        end = (start + 5)
         plants = Plant.query.all()
         formatted_plants = [plant.format() for plant in plants]    
         return jsonify({
             'success': True,
-            'plants': formatted_plants
+            'plants': formatted_plants[start:end],
+            'total plants': len(formatted_plants)
         })
+
     return app
