@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from models import setup_db, Plant
 from flask_cors import CORS
 
@@ -25,5 +25,16 @@ def create_app(test_Config=None):
             'plants': formatted_plants[start:end],
             'total plants': len(formatted_plants)
         })
+
+    @app.route("/plants/<int:plant_id>")
+    def get_plant(plant_id):
+        plant = Plant.query.filter(plant_id == Plant.id).one_or_none()
+        if plant is None:
+            abort(404)
+        else:
+            return jsonify({
+                'success': True,
+                'plant': plant.format()
+            })
 
     return app
