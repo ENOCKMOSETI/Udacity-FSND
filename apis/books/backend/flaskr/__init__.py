@@ -29,7 +29,7 @@ def create_app(test_config=None):
             "Access-Control-Allow-Headers", "Content-Type,Authorization,true"
         )
         response.headers.add(
-            "Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS"
+            "Access-Control-Allow-Methods", "GET,PATCH,POST,DELETE,OPTIONS"
         )
         return response
 
@@ -59,9 +59,30 @@ def create_app(test_config=None):
     #         and should follow API design principles regarding method and route.
     #         Response body keys: 'success'
     # TEST: When completed, you will be able to click on stars to update a book's rating and it will persist after refresh
-    @app.route('/book/<int:book_id>', methods=['PUT'])
+    @app.route('/books/<int:book_id>', methods=['PATCH'])
     def update_book(book_id):
-        pass
+        body = request.get_json()
+
+        try:
+
+            book = Book.query.filter(Book.id == book_id).one_or_none()
+
+            if book is None:
+                abort(404)
+
+            if 'rating' in body:
+                book.rating = int(body['rating'])
+            
+            book.update()
+
+            return jsonify({
+                "success": True, 
+                "id": book.id
+            })
+
+        except:
+            print(sys.exc_info())
+            abort(400)
     # @TODO: Write a route that will delete a single book.
     #        Response body keys: 'success', 'deleted'(id of deleted book), 'books' and 'total_books'
     #        Response body keys: 'success', 'books' and 'total_books'
