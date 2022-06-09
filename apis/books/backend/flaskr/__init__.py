@@ -138,6 +138,9 @@ def create_app(test_config=None):
             print(sys.exc_info())
             abort(422)
 
+    @app.errorhandler(400)
+    def 
+    
     @app.errorhandler(404)
     def not_found(error):
         return jsonify({
