@@ -139,7 +139,12 @@ def create_app(test_config=None):
             abort(422)
 
     @app.errorhandler(400)
-    def 
+    def bad_request(error):
+        return jsonify({
+            'success': False,
+            'error': error,
+            'message': 'could not process bad request'
+        }), 400
     
     @app.errorhandler(404)
     def not_found(error):
