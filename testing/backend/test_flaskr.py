@@ -88,6 +88,18 @@ class BookTestCase(unittest.TestCase):
 
         self.assertEqual(res.status_code, 405)
 
+    def test_delete_book(self):
+        res = self.client().delete('books/3')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+
+    def test_delete_invalid_book(self):
+        res = self.client().delete('books/2')
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 422)
+
 # Make the tests conveniently executable
 if __name__ == "__main__":
     unittest.main()
