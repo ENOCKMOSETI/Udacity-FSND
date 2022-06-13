@@ -21,7 +21,7 @@ class BookTestCase(unittest.TestCase):
         )
         setup_db(self.app, self.database_path)
 
-        self.new_book = {"title": "Anansi Boys", "author": "Neil Gaiman", "rating": 5}
+        self.new_book = {"title": "Coraline", "author": "Neil Gaiman", "rating": 4}
 
         # binds the app to the current context
         with self.app.app_context():
@@ -73,6 +73,20 @@ class BookTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 400)
         self.assertFalse(data['success'])
         self.assertEqual(data['message'], 'bad request')
+
+    def test_create_book(self):
+        res = self.client().post('/books', json=self.new_book)
+        data = json.loads(res.data)
+
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(data['success'], True)
+        self.assertTrue(data['created'])
+        self.assertTrue(len(data['books']))
+
+    def test_create_book_invalid_url(self):
+        res = self.client().post('/books/5', json=self.new_book)
+
+        self.assertEqual(res.status_code, 405)
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
