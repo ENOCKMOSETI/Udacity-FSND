@@ -160,6 +160,23 @@ def create_app(test_config=None):
         except:
             abort(422)            
 
+    #search for book by title
+    @app.route('/books/search', methods=['POST'])
+    def search_book_by_title():
+        body = request.get_json()
+        search = body['search']
+        try:
+            books = Book.query.filter(Book.title.ilike('%' + search + '%')).with_entities(Book.id.label('id'), Book.title.label('title'), Book.author.label('author'), Book.rating.label('rating')).all()
+            return ({
+                'success': True,
+                'totalBooks': len(books),
+                'books': Book.format_all(books),
+                'page': request.args.get('page')
+            })
+        except:
+            print(sys.exc_info())
+            abort(404)
+
     @app.errorhandler(400)
     def bad_request(error):
         return jsonify({

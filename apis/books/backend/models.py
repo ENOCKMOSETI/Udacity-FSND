@@ -62,3 +62,14 @@ class Book(db.Model):
             "author": self.author,
             "rating": self.rating,
         }
+
+    def format_all(raw):
+        books = []
+        for book in raw:
+            books.append({
+                "id": book[0],
+                "title": book[1],
+                "author": book[2],
+                "rating": book[3],
+            })
+        return books
