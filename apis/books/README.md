@@ -1,3 +1,54 @@
+# Udacity Bookshelf
+
+Udacity bookshelf is a platform that lists books to be read. A reader lives a thousand lives before he dies . . . The man who never reads lives only one.
+
+![book listings](./bookshelf.png)
+
+## Getting Started
+
+### Frontend setup
+
+install node:
+https://nodejs.org/en/download/package-manager/
+install dependencies:
+`npm install`
+start app:
+`npm start` 
+
+### Backend setup
+install python:
+https://docs.python-guide.org/starting/installation/
+setup an activate virtual environment:
+https://virtualenv.pypa.io/en/latest/installation.html
+`virtualenv venv`
+`source bin/activate`
+install required modules from requirements.txt file:
+pip install -r requirements.txt
+export FLASK_APP ENVIRONMENT variable:
+export FLASK_APP=flaskr/
+run flask app:
+flask run
+
+### Tests
+
+python TDD_search.py
+
+### API Reference
+https://github.com/ENOCKMOSETI/Udacity-FSND/blob/main/apis/books/backend/README.md
+
+### Deployment
+#### Heroku
+
+### Authors
+Enock Moseti
+
+### Acknowledgements
+Udacity
+African Leadership X
+
+
+
+
 ## Local Development 
 The instructions below are meant for the local setup only. The classroom workspace is already set for your to start practicing. 
 
