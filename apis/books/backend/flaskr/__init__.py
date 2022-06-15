@@ -92,12 +92,12 @@ def create_app(test_config=None):
 
             return jsonify({
                 "success": True, 
-                "id": book.id
+                "book": book.format()
             })
 
         except:
             print(sys.exc_info())
-            abort(400)
+            abort(422)
     # @TODO: Write a route that will delete a single book.
     #        Response body keys: 'success', 'deleted'(id of deleted book), 'books' and 'total_books'
     #        Response body keys: 'success', 'books' and 'total_books'
@@ -117,7 +117,8 @@ def create_app(test_config=None):
                 'total_books': len(books_on_page)
             })
         except:
-            abort(422)
+            print(sys.exc_info())
+            abort(404)
         # book = Book.query.filter(book_id == Book.id).one_or_none()
         # book.delete()
         # page = request.args.get('page', 1, type=int)
@@ -153,12 +154,12 @@ def create_app(test_config=None):
             books_on_page = paginate_books(request, books)
             return ({
                 'success': True,
-                'created': book.id,
-                'books': books_on_page,
-                'total_books': len(books_on_page)
+                'created': book.format(),
+                # 'books': books_on_page,
+                # 'total_books': len(books_on_page)
             })
         except:
-            abort(422)            
+            abort(422)
 
     #search for book by title
     @app.route('/books/search', methods=['POST'])
