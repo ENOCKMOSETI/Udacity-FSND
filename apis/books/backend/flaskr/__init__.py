@@ -154,9 +154,7 @@ def create_app(test_config=None):
             books_on_page = paginate_books(request, books)
             return ({
                 'success': True,
-                'created': book.format(),
-                # 'books': books_on_page,
-                # 'total_books': len(books_on_page)
+                'created': book.format()
             })
         except:
             abort(422)
