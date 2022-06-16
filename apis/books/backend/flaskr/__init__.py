@@ -77,24 +77,17 @@ def create_app(test_config=None):
     @app.route('/books/<int:book_id>', methods=['PATCH'])
     def update_book(book_id):
         body = request.get_json()
-
         try:
-
             book = Book.query.filter(Book.id == book_id).one_or_none()
-
             if book is None:
                 abort(404)
-
             if 'rating' in body:
                 book.rating = int(body['rating'])
-            
             book.update()
-
             return jsonify({
                 "success": True, 
                 "book": book.format()
             })
-
         except:
             print(sys.exc_info())
             abort(422)

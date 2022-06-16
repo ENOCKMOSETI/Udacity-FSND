@@ -6,7 +6,7 @@
 
 ## Getting Started
 
-    - Base URL: App runs locally at http://127.0.0.1:5000 which is set as a proxy in the frontend configuration
+    - Base URL: App runs locally at http://127.0.0.1:5000 which is set as a proxy in the frontend configuration \
     - Authentication: This version does not require authentication or API keys
 
 ## Errors
@@ -22,7 +22,7 @@
     - Error types: 'not found'
 ## Endpoints
 
-# GET /books
+### GET /books
     Returns an object with a success value, list of book objects sorted by id and total number of books on page
     Results are paginated in groups of 8. Include a page number as a request argument.
     Returns the first page if no argument is passed
@@ -83,7 +83,7 @@
         "total_books": 8
 
     `
-# DELETE /books/{book_id}
+### DELETE /books/{book_id}
     Removes a book object with specified id and returns an object with a success value, the id of the deleted book, list of remaining book objects sorted by id and total number of books on page
     Requires a valid book id else just returns a 404 for resource not found
 
@@ -151,7 +151,7 @@
             "success": false
         }
     `
-# PATCH http://127.0.0.1/books/{book_id}
+### PATCH http://127.0.0.1/books/{book_id}
     updates the rating of a book object returning a success value and the updated book object
 
     Sample: curl http://127.0.0.1:5000/books/2 -X PATCH -H "Content-Type: application/json" -d '{"rating":"2"}'
@@ -165,7 +165,7 @@
         "success": true
 
     `
-# POST http://127.0.0.1/books
+### POST http://127.0.0.1/books
     adds a book object to the list of book objects returning a sucess value and the created book object
 
     Sample: curl http://127.0.0.1:5000/books -X POST -H "Content-Type: application/json" -d '{"title": "Google It", "author": "Newton Lee", "rating": '3'}'
@@ -180,7 +180,7 @@
 
     `
 
-# POST http://127.0.0.1/books/{search}
+### POST http://127.0.0.1/books/{search}
     returns a success value and a list of book object with a title that includes the search term
 
     Sample: curl http://127.0.0.1:5000/books/search -X POST -H "Content-Type: application/json" -d '{"search": "Google"}'
